@@ -74,6 +74,17 @@ public final class Constants {
     public static final double kDrivingMotorReduction = (45.0 * 22) / (kDrivingMotorPinionTeeth * 15);
     public static final double kDriveWheelFreeSpeedRps = (kDrivingMotorFreeSpeedRps * kWheelCircumferenceMeters)
         / kDrivingMotorReduction;
+
+    //PID values
+    public static final double driveKP = 0;
+    public static final double driveKI = 0;
+    public static final double driveKD = 0;
+    public static final double driveKF = 0;
+        
+    public static final double angleKP = 0;
+    public static final double angleKI = 0;
+    public static final double angleKD = 0;
+    public static final double angleKF = 0;
   }
 
   public static final class OIConstants {
