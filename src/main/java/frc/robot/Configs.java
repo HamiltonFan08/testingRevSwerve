@@ -1,7 +1,8 @@
 package frc.robot;
 
 import com.revrobotics.spark.config.SparkMaxConfig;
-import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
+import com.revrobotics.spark.config.FeedbackSensor;
+import com.revrobotics.spark.config.AbsoluteEncoderConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import frc.robot.Constants.ModuleConstants;
@@ -16,6 +17,7 @@ public final class Configs {
             double drivingFactor = ModuleConstants.kWheelDiameterMeters * Math.PI
                     / ModuleConstants.kDrivingMotorReduction;
             double turningFactor = 2 * Math.PI;
+            double nominalVoltage = 12.0;
             double drivingVelocityFeedForward = 1 / ModuleConstants.kDriveWheelFreeSpeedRps;
 
             drivingConfig
@@ -29,8 +31,8 @@ public final class Configs {
                     // ============================Hello PID
                     .pid(0.04, 0, 0)
                     // ============================We love you very much
-                    .velocityFF(drivingVelocityFeedForward)
                     .outputRange(-1, 1);
+                    .feedForward.kV(drivingVelocityFeedForward)
 
             turningConfig
                     .idleMode(IdleMode.kBrake)
@@ -41,6 +43,9 @@ public final class Configs {
                     .inverted(true)
                     .positionConversionFactor(turningFactor) // radians
                     .velocityConversionFactor(turningFactor / 60.0); // radians per second
+                    // This applies to REV Through Bore Encoder V2 (use REV_ThroughBoreEncoder for V1):
+                    .apply(AbsoluteEncoderConfig.Presets.REV_ThroughBoreEncoder)
+                    
             turningConfig.closedLoop
                     .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
                     // ============================Hello PID
